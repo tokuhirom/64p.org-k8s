@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog3
+  labels:
+    app: blog3-app-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog3-app-server
+  template:
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: blog3-app-server
+    spec:
+      containers:
+      - name: blog3-app-server
+        image: ghcr.io/tokuhirom/blog3:latest
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8080 # The port that the container exposes
+        resources:
+          limits:
+            cpu: 0.2
+            memory: "700Mi"
+        env:
+        - name: SERVER_ERROR_ENABLED
+          value: "false"
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: mysql-user-pass
+              key: url
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: mysql-user-pass
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: mysql-user-pass
+              key: password
+        - name: SPRING_SECURITY_USER_NAME
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: security-user-pass
+              key: username
+        - name: SPRING_SECURITY_USER_PASSWORD
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: security-user-pass
+              key: password
+        - name: SPRING_SECURITY_USER_ROLES
+          value: "ADMIN"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog3-app-server
+  labels:
+    app: blog3-app-server
+spec:
+  type: NodePort
+  selector:
+    app: blog3-app-server
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
