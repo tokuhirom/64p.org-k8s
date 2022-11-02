@@ -67,7 +67,10 @@ Apply all files:
     Annotations:            kubernetes.io/ingress.class: nginx
     Events:                 <none>
 
+## deployment
 
+    - kubectl rollout restart deployment/blog3 で最新イメージになる
+    - kubectl get rs でデプロイ履歴を見る
 
 
 ## Next step
