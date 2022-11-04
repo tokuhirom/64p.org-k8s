@@ -72,6 +72,8 @@ Apply all files:
     - kubectl rollout restart deployment/blog3 で最新イメージになる
     - kubectl get rs でデプロイ履歴を見る
 
+    - increase replica
+        - `kubectl scale --replicas=2 rs/blog3-b657f9dff`
 
 ## Next step
 

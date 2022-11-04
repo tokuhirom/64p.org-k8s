@@ -16,4 +16,14 @@ spec:
             name: blog3-app-server
             port:
               number: 8080
+  - host: "64p.org"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: hp-64p-app-server
+            port:
+              number: 8080
 

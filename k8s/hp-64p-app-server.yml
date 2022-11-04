@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hp-64p
+  labels:
+    app: hp-64p-app-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hp-64p-app-server
+  template:
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: hp-64p-app-server
+    spec:
+      containers:
+      - name: hp-64p-app-server
+        image: ghcr.io/tokuhirom/64p.org:latest
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8080 # The port that the container exposes
+        resources:
+          limits:
+            cpu: 0.1
+            memory: "100Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hp-64p-app-server
+  labels:
+    app: hp-64p-app-server
+spec:
+  type: NodePort
+  selector:
+    app: hp-64p-app-server
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
