@@ -71,9 +71,15 @@ Apply all files:
 
     - kubectl rollout restart deployment/blog3 で最新イメージになる
     - kubectl get rs でデプロイ履歴を見る
-
     - increase replica
         - `kubectl scale --replicas=2 rs/blog3-b657f9dff`
+
+## certs
+
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.0/cert-manager.yaml
+    kubectl get pods --namespace cert-manager
+    kubectl apply -f https://raw.githubusercontent.com/compumike/hairpin-proxy/v0.2.1/deploy.yml
+    kubectl apply -f k8s/ingress-nginx.yml
 
 ## Next step
 
