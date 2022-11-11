@@ -74,12 +74,16 @@ Apply all files:
     - increase replica
         - `kubectl scale --replicas=2 rs/blog3-b657f9dff`
 
-## certs
+## certs(ssl)
 
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.10.0/cert-manager.yaml
     kubectl get pods --namespace cert-manager
     kubectl apply -f https://raw.githubusercontent.com/compumike/hairpin-proxy/v0.2.1/deploy.yml
     kubectl apply -f k8s/ingress-nginx.yml
+
+## basic auth
+
+https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
 
 ## Next step
 

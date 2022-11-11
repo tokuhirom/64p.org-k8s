@@ -21,7 +21,11 @@ spec:
         imagePullPolicy: Always
         ports:
           - name: http
-            containerPort: 8080 # The port that the container exposes
+            containerPort: 8080 # spring boot
+          - name: http-web
+            containerPort: 8180 # ktor(web)
+          - name: http-admin
+            containerPort: 8280 # kweb(admin)
         resources:
           limits:
             cpu: 0.2
@@ -73,3 +77,9 @@ spec:
   - name: http
     port: 8080
     targetPort: 8080
+  - name: http-web
+    port: 8180
+    targetPort: 8180
+  - name: http-admin
+    port: 8280
+    targetPort: 8280

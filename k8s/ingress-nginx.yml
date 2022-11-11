@@ -21,7 +21,7 @@ spec:
           service:
             name: blog3-app-server
             port:
-              number: 8080
+              number: 8180
   - host: "64p.org"
     http:
       paths:

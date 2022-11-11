@@ -1,0 +1,32 @@
+---
+# ingress-nginx can't apply basic-auth for specific host.
+# as a result, i split the configuration file.
+#
+# https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog3-admin-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - blog-admin'
+spec:
+  tls:
+  - hosts:
+    - blog-admin.64p.org
+    secretName: blog-admin-app-tls
+  rules:
+  - host: "blog-admin.64p.org"
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: blog3-app-server
+            port:
+              number: 8280
+
