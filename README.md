@@ -17,6 +17,7 @@
 
     kubectl create secret generic mysql-user-pass --from-literal=url=${URL} --from-literal=username=${USERNAME} --from-literal=password=${PASSWORD}
     kubectl create secret generic security-user-pass --from-literal=username=${USERNAME} --from-literal=password=${PASSWORD}
+    kubectl create secret generic aws --from-literal=access_key_id=${ACCESS_KEY_ID} --from-literal=secret_key=${SECRET_KEY}
 
 消すときは以下の様にする。
 
