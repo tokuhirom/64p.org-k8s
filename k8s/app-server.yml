@@ -60,6 +60,16 @@ spec:
             secretKeyRef:
               name: security-user-pass
               key: password
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: secret_key
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws
+              key: access_key_id
         - name: SPRING_SECURITY_USER_ROLES
           value: "ADMIN"
 ---
